@@ -8,10 +8,14 @@ const handlePasswordValue = ({ target }, setPassword) => {
   setPassword(target.value);
 };
 
-const handleLogin = async (e, payload) => {
+const handleLogin = async (e, payload, navigate) => {
   e.preventDefault();
   const data = await logIn(payload);
-  return data;
+
+  if (data && data.token) {
+    localStorage.setItem("token", data.token);
+    navigate("/users");
+  }
 };
 
 export default {

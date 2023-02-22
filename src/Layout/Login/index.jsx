@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import constants from "../../common/constants";
@@ -14,6 +15,7 @@ const {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   return (
     <>
@@ -29,7 +31,7 @@ function Login() {
           value={password}
           onChange={(e) => handlePasswordValue(e, setPassword)}
         />
-        <Button onClick={(e) => handleLogin(e, { email, password })} />
+        <Button onClick={(e) => handleLogin(e, { email, password }, navigate)} btnValue='Log in' />
       </form>
     </>
   );
