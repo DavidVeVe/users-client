@@ -7,22 +7,19 @@ function User() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = fetch(
-        `http://localhost:3000/api/v1/users/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            api: "unfkktcy"
-          }
+      const response = fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          api: "unfkktcy"
         }
-      );
+      });
 
       const userData = await response.json();
-      return userData
+      return userData;
     };
 
-    fetchUser()
+    fetchUser();
   }, []);
 
   return <h1>User</h1>;
