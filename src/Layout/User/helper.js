@@ -4,7 +4,7 @@ const { fetchSingleUser } = requests;
 
 const getUser = async (userId) => {
   const data = await fetchSingleUser(userId);
-  return data;
+  return data.data;
 };
 
 export default { getUser };
