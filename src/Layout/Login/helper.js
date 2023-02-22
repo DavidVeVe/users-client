@@ -14,7 +14,7 @@ const handleLogin = async (e, payload, navigate) => {
 
   if (data && data.token) {
     localStorage.setItem("token", data.token);
-    navigate("/users");
+    navigate(`/users/${data.user._id}`);
   }
 };
 

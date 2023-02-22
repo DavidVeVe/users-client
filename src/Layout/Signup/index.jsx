@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import constants from "../../common/constants";
@@ -35,6 +36,7 @@ function Signup() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState("");
+  const navigate = useNavigate();
 
   const signUpPayload = {
     name: {
@@ -113,6 +115,7 @@ function Signup() {
           signUpHandler(
             e,
             signUpPayload,
+            navigate,
             setEmail,
             setPassword,
             setFirstName,
@@ -124,9 +127,8 @@ function Signup() {
             setPhone,
             setAddress,
             setBalance
-           )
+          )
         }
-
         btnValue="Sign Up"
       />
     </form>

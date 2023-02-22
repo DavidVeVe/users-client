@@ -4,7 +4,7 @@ const handleInputChange = ({ target }, setInputState) => {
   setInputState(target.value);
 };
 
-const signUpHandler = async (e, payload, ...callbacks) => {
+const signUpHandler = async (e, payload, navigate, ...callbacks) => {
   e.preventDefault();
   const data = await signUp(payload);
   const { token } = data;
@@ -12,6 +12,7 @@ const signUpHandler = async (e, payload, ...callbacks) => {
     callbacks.forEach((callback) => {
       callback("");
     });
+    navigate('/users')
   }
   console.log(data);
   return data;
