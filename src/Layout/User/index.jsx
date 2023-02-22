@@ -9,7 +9,8 @@ const { getUser } = helper;
 function User() {
   const { userId } = useParams();
   const [user, setUser] = useState({});
-  const [showBalance, setShowBalance] = useState(false)
+  const { balance, picture, name } = user;
+  const [showBalance, setShowBalance] = useState(false);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -21,22 +22,25 @@ function User() {
   }, []);
 
   const toggleBalance = () => {
-    console.log(showBalance);
-    setShowBalance(!showBalance)
-  }
+    setShowBalance(!showBalance);
+  };
 
-  console.log(user)
-
-  const balance = showBalance && <h5>{user.balance}</h5>
+  const currentBalance = showBalance && <h5>{balance}</h5>;
+  const userName = (
+    <h5>
+      {name?.first} {name?.last}
+    </h5>
+  );
 
   return (
     <section className="user-profile">
-      <img className="user-profile__image" src={user.picture} />
+      <img className="user-profile__image" src={picture} />
+      {userName}
       <div className="user-profile__btns">
         <Button btnValue="Balance" onClick={toggleBalance} />
         <Button btnValue="Edit" />
       </div>
-      {balance}
+      {currentBalance}
     </section>
   );
 }
