@@ -4,6 +4,8 @@ const LOGIN = {
 };
 
 const SIGNUP = {
+  EMAIL: "Email",
+  PASSWORD: "Password",
   PICTURE: "Picture",
   AGE: "Age",
   EYE_COLOR: "Eye color",
