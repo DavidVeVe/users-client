@@ -5,19 +5,7 @@ import constants from "../../common/constants";
 import helper from "./helper";
 import "./signup.scss";
 
-const {
-  signUpHandler,
-  handleFirstNameChange,
-  handleLastNameChange,
-  handleAgeChange,
-  handleEyeColorChange,
-  handlePictureChange,
-  handleCompanyChange,
-  handlePhoneChange,
-  handleAddressChange,
-  handleEmailChange,
-  handlePasswordChange
-} = helper;
+const { signUpHandler, handleInputChange } = helper;
 
 const {
   SIGNUP: {
@@ -29,7 +17,8 @@ const {
     NAME,
     COMPANY,
     EMAIL,
-    PASSWORD
+    PASSWORD,
+    BALANCE
   }
 } = constants;
 
@@ -45,6 +34,7 @@ function Signup() {
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [balance, setBalance] = useState("");
 
   const signUpPayload = {
     name: {
@@ -62,58 +52,83 @@ function Signup() {
   };
 
   return (
-    <form>
+    <form className="sigup-form">
       <Input
         labelText={EMAIL}
         value={email}
-        onChange={(e) => handleEmailChange(e, setEmail)}
+        onChange={(e) => handleInputChange(e, setEmail)}
       />
       <Input
         labelText={PASSWORD}
         value={password}
-        onChange={(e) => handlePasswordChange(e, setPassword)}
+        onChange={(e) => handleInputChange(e, setPassword)}
       />
       <Input
         labelText={NAME.FIRST}
         value={first}
-        onChange={(e) => handleFirstNameChange(e, setFirstName)}
+        onChange={(e) => handleInputChange(e, setFirstName)}
       />
       <Input
         labelText={NAME.LAST}
         value={last}
-        onChange={(e) => handleLastNameChange(e, setLastName)}
+        onChange={(e) => handleInputChange(e, setLastName)}
       />
       <Input
         labelText={AGE}
         value={age}
-        onChange={(e) => handleAgeChange(e, setAge)}
+        onChange={(e) => handleInputChange(e, setAge)}
       />
       <Input
         labelText={EYE_COLOR}
         value={eyeColor}
-        onChange={(e) => handleEyeColorChange(e, setEyeColor)}
+        onChange={(e) => handleInputChange(e, setEyeColor)}
       />
       <Input
         labelText={PICTURE}
         value={picture}
-        onChange={(e) => handlePictureChange(e, setPicture)}
+        onChange={(e) => handleInputChange(e, setPicture)}
       />
       <Input
         labelText={COMPANY}
         value={company}
-        onChange={(e) => handleCompanyChange(e, setCompany)}
+        onChange={(e) => handleInputChange(e, setCompany)}
       />
       <Input
         labelText={PHONE}
         value={phone}
-        onChange={(e) => handlePhoneChange(e, setPhone)}
+        onChange={(e) => handleInputChange(e, setPhone)}
       />
       <Input
         labelText={ADDRESS}
         value={address}
-        onChange={(e) => handleAddressChange(e, setAddress)}
+        onChange={(e) => handleInputChange(e, setAddress)}
       />
-      <Button onClick={(e) => signUpHandler(e, signUpPayload)} />
+      <Input
+        labelText={BALANCE}
+        value={balance}
+        onChange={(e) => handleInputChange(e, setBalance)}
+      />
+      <Button
+        onClick={(e) =>
+          signUpHandler(
+            e,
+            signUpPayload,
+            setEmail,
+            setPassword,
+            setFirstName,
+            setLastName,
+            setAge,
+            setEyeColor,
+            setPicture,
+            setCompany,
+            setPhone,
+            setAddress,
+            setBalance
+           )
+        }
+
+        btnValue="Sign Up"
+      />
     </form>
   );
 }

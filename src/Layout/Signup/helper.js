@@ -1,52 +1,23 @@
 import { signUp } from "../../requestsHandlers/auth";
 
-const handleEmailChange = ({ target }, setEmail) => {
-  setEmail(target.value);
-};
-const handlePasswordChange = ({ target }, setPassword) => {
-  setPassword(target.value);
-};
-const handleFirstNameChange = ({ target }, setFirstName) => {
-  setFirstName(target.value);
-};
-const handleLastNameChange = ({ target }, setLastName) => {
-  setLastName(target.value);
-};
-const handleAgeChange = ({ target }, setAge) => {
-  setAge(target.value);
-};
-const handleEyeColorChange = ({ target }, setEyeColor) => {
-  setEyeColor(target.value);
-};
-const handlePictureChange = ({ target }, setPicture) => {
-  setPicture(target.value);
-};
-const handleCompanyChange = ({ target }, setCompany) => {
-  setCompany(target.value);
-};
-const handlePhoneChange = ({ target }, setPhone) => {
-  setPhone(target.value);
-};
-const handleAddressChange = ({ target }, setAddress) => {
-  setAddress(target.value);
+const handleInputChange = ({ target }, setInputState) => {
+  setInputState(target.value);
 };
 
-const signUpHandler = async (e, payload) => {
+const signUpHandler = async (e, payload, ...callbacks) => {
   e.preventDefault();
-  const data = await signUp(payload)
+  const data = await signUp(payload);
+  const { token } = data;
+  if (token) {
+    callbacks.forEach((callback) => {
+      callback("");
+    });
+  }
   console.log(data);
+  return data;
 };
 
 export default {
   signUpHandler,
-  handleFirstNameChange,
-  handleLastNameChange,
-  handleAgeChange,
-  handleEyeColorChange,
-  handlePictureChange,
-  handleCompanyChange,
-  handlePhoneChange,
-  handleAddressChange,
-  handleEmailChange,
-  handlePasswordChange
+  handleInputChange
 };

@@ -15,6 +15,7 @@ const SIGNUP = {
   },
   COMPANY: "Company",
   PHONE: "Phone",
-  ADDRESS: "Address"
+  ADDRESS: "Address",
+  BALANCE: "Balance"
 };
 export default { LOGIN, SIGNUP };
