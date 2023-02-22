@@ -23,6 +23,7 @@ async function signUp(payload) {
   });
 
   const data = await response.json();
+  return data 
 }
 
 export { logIn, signUp };

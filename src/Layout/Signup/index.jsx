@@ -37,8 +37,8 @@ function Signup() {
   //This would have been handled with a reducer having more time available and avoid all the use state and repetitive functions
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first, setFirstName] = useState("");
+  const [last, setLastName] = useState("");
   const [age, setAge] = useState("");
   const [eyeColor, setEyeColor] = useState("");
   const [picture, setPicture] = useState("");
@@ -48,8 +48,8 @@ function Signup() {
 
   const signUpPayload = {
     name: {
-      firstName,
-      lastName
+      first,
+      last
     },
     email,
     password,
@@ -75,12 +75,12 @@ function Signup() {
       />
       <Input
         labelText={NAME.FIRST}
-        value={firstName}
+        value={first}
         onChange={(e) => handleFirstNameChange(e, setFirstName)}
       />
       <Input
         labelText={NAME.LAST}
-        value={lastName}
+        value={last}
         onChange={(e) => handleLastNameChange(e, setLastName)}
       />
       <Input
