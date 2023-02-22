@@ -34,7 +34,7 @@ const {
 } = constants;
 
 function Signup() {
-  //This would have been handled with a reducer having more time and avoid all the use state and repetitive functions
+  //This would have been handled with a reducer having more time available and avoid all the use state and repetitive functions
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
