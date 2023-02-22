@@ -1,26 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import helper from "./helper";
 import "./user.scss";
+
+const { getUser } = helper;
 
 function User() {
   const { userId } = useParams();
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = fetch(`http://localhost:3000/api/v1/users/${userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          api: "unfkktcy"
-        }
-      });
-
-      const userData = await response.json();
-      return userData;
+    const getUserData = async () => {
+      const data = await getUser(userId);
+      setUser(data);
     };
-
-    fetchUser();
+    
+    getUserData();
   }, []);
+
+  console.log(user)
 
   return <h1>User</h1>;
 }
