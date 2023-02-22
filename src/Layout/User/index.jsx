@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button";
 import helper from "./helper";
 import "./user.scss";
 
-const { getUser } = helper;
+const { getUser, editUser } = helper;
 
 function User() {
   const { userId } = useParams();
   const [user, setUser] = useState({});
   const { balance, picture, name } = user;
   const [showBalance, setShowBalance] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserData = async () => {
@@ -26,6 +27,7 @@ function User() {
   };
 
   const currentBalance = showBalance && <h5>{balance}</h5>;
+
   const userName = (
     <h5>
       {name?.first} {name?.last}
@@ -38,7 +40,7 @@ function User() {
       {userName}
       <div className="user-profile__btns">
         <Button btnValue="Balance" onClick={toggleBalance} />
-        <Button btnValue="Edit" />
+        <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} />
       </div>
       {currentBalance}
     </section>

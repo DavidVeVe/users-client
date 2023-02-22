@@ -7,4 +7,8 @@ const getUser = async (userId) => {
   return data.data;
 };
 
-export default { getUser };
+const editUser = (navigate, userId) => {
+  navigate(`/users/${userId}/updateDetails`)
+}
+
+export default { getUser, editUser };
