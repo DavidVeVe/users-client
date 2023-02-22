@@ -1,9 +1,12 @@
+import RenderIfValid from "../../common/RenderIfValid";
 import "./input.scss";
 
 function Input({ labelText }) {
   return (
     <>
-      <label>{labelText}</label>
+      <RenderIfValid isValid={labelText}>
+        <label>{labelText}</label>
+      </RenderIfValid>
       <input type="text" />
     </>
   );
