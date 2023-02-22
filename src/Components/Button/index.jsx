@@ -1,7 +1,7 @@
-import './button.scss'
+import "./button.scss";
 
-function Button({ btnValue, icon }) {
-  return <button>{icon || btnValue}</button>;
+function Button({ btnValue, icon, onClick }) {
+  return <button onClick={onClick}>{icon || btnValue}</button>;
 }
 
 export default Button;
