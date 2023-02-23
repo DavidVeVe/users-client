@@ -6,20 +6,19 @@ import "./user.scss";
 
 const { getUser, editUser } = helper;
 
-function User() {
+function User({ userData }) {
+  const { balance, name, picture, _id } = userData;
   const { userId } = useParams();
-  const [user, setUser] = useState({});
-  const { balance, picture, name } = user;
+  console.log({ userData });
   const [showBalance, setShowBalance] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getUserData = async () => {
-      const data = await getUser(userId);
-      setUser(data);
-    };
-
-    getUserData();
+    // const getUserData = async () => {
+    //   const data = await getUser(userId);
+    //   setUser(data);
+    // };
+    // getUserData();
   }, []);
 
   const toggleBalance = () => {
