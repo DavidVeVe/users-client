@@ -1,9 +1,10 @@
 import requests from "../../requestsHandlers/user";
-const handleUpdateUser = async (e, navigate, userId, payload, ...callbacks) => {
+
+const handleUpdateUser = async (e, navigate, userId, payload, getMessage) => {
   e.preventDefault();
   const data = await requests.updateUser(userId, payload);
-  console.log(data);
-  navigate(`/users/${userId}`);
+  navigate(`/users`);
+  return data
 };
 
 const handleInputChange = ({ target }, setInputState) => {

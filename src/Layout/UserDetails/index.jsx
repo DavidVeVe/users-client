@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import RenderIfValid from "../../common/RenderIfValid";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
+import Loader from "../../Components/Loader";
 import helper from "../User/helper";
 import constants from "../../common/constants";
 import detailsHelper from "./helper";
@@ -13,32 +15,42 @@ const {
   SIGNUP: { PICTURE, PHONE, ADDRESS, AGE, EYE_COLOR, NAME, COMPANY, BALANCE }
 } = constants;
 
-function UserDetails({}) {
-    
-    
-    const [user, setUser] = useState({});
-    
-    useEffect(() => {
-        const getUserData = async () => {
-            const data = await helper.getUser(userId);
-            setUser(data);
-        };
-        
-        getUserData();
-    }, []);
-    
-    console.log(user.name)
-  const [first, setFirstName] = useState(user?.name?.first);
-  const [last, setLastName] = useState(user?.name?.last);
-  const [age, setAge] = useState(user.age);
-  const [eyeColor, setEyeColor] = useState(user.eyeColor);
-  const [picture, setPicture] = useState(user.picture);
-  const [company, setCompany] = useState(user.company);
-  const [phone, setPhone] = useState(user.phone);
-  const [address, setAddress] = useState(user.address);
-  const [balance, setBalance] = useState(user.balance);
+const EDIT = "Edit user details";
 
-  const { userId } = useParams();
+function UserDetails() {
+  // This could be refactored with a reducer
+  const [first, setFirstName] = useState("");
+  const [last, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [eyeColor, setEyeColor] = useState("");
+  const [picture, setPicture] = useState("");
+  const [company, setCompany] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [balance, setBalance] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const userId = localStorage.getItem("userId");
+  useEffect(() => {
+    const getUserData = async () => {
+      setIsLoading(true);
+      const data = await helper.getUser(userId);
+
+      setFirstName(data.name.first);
+      setLastName(data.name.last);
+      setAge(data.age);
+      setEyeColor(data.eyeColor);
+      setPicture(data.picture);
+      setCompany(data.company);
+      setPhone(data.phone);
+      setAddress(data.address);
+      setBalance(data.balance);
+      setIsLoading(false);
+    };
+
+    getUserData();
+  }, []);
+
   const navigate = useNavigate();
 
   const updateDetailsPayload = {
@@ -51,77 +63,74 @@ function UserDetails({}) {
     picture,
     company,
     phone,
-    address
+    address,
+    balance
   };
 
+  const updateUser = (e) =>
+    handleUpdateUser(e, navigate, userId, updateDetailsPayload);
+
   return (
-    <form className="user-details">
-      <Input
-        labelText={NAME.FIRST}
-        value={first}
-        onChange={(e) => handleInputChange(e, setFirstName)}
-      />
-      <Input
-        labelText={NAME.LAST}
-        value={last}
-        onChange={(e) => handleInputChange(e, setLastName)}
-      />
-      <Input
-        labelText={AGE}
-        value={age}
-        onChange={(e) => handleInputChange(e, setAge)}
-      />
-      <Input
-        labelText={EYE_COLOR}
-        value={eyeColor}
-        onChange={(e) => handleInputChange(e, setEyeColor)}
-      />
-      <Input
-        labelText={PICTURE}
-        value={picture}
-        onChange={(e) => handleInputChange(e, setPicture)}
-      />
-      <Input
-        labelText={COMPANY}
-        value={company}
-        onChange={(e) => handleInputChange(e, setCompany)}
-      />
-      <Input
-        labelText={PHONE}
-        value={phone}
-        onChange={(e) => handleInputChange(e, setPhone)}
-      />
-      <Input
-        labelText={ADDRESS}
-        value={address}
-        onChange={(e) => handleInputChange(e, setAddress)}
-      />
-      <Input
-        labelText={BALANCE}
-        value={balance}
-        onChange={(e) => handleInputChange(e, setBalance)}
-      />
-      <Button
-        btnValue="Save"
-        onClick={(e) =>
-          handleUpdateUser(
-            e,
-            navigate,
-            userId,
-            updateDetailsPayload,
-            setFirstName,
-            setLastName,
-            setAge,
-            setEyeColor,
-            setPicture,
-            setCompany,
-            setPhone,
-            setAddress,
-            setBalance
-          )
-        }
-      />
-    </form>
+    <>
+      <RenderIfValid isValid={isLoading}>
+        <Loader />
+      </RenderIfValid>
+      <RenderIfValid isValid={!isLoading}>
+        <form className="user-details">
+          <h3>{EDIT}</h3>
+          <Input
+            labelText={NAME.FIRST}
+            value={first}
+            onChange={(e) => handleInputChange(e, setFirstName)}
+          />
+          <Input
+            labelText={NAME.LAST}
+            value={last}
+            onChange={(e) => handleInputChange(e, setLastName)}
+          />
+          <Input
+            labelText={AGE}
+            value={age}
+            onChange={(e) => handleInputChange(e, setAge)}
+          />
+          <Input
+            labelText={EYE_COLOR}
+            value={eyeColor}
+            onChange={(e) => handleInputChange(e, setEyeColor)}
+          />
+          <Input
+            labelText={PICTURE}
+            value={picture}
+            onChange={(e) => handleInputChange(e, setPicture)}
+          />
+          <Input
+            labelText={COMPANY}
+            value={company}
+            onChange={(e) => handleInputChange(e, setCompany)}
+          />
+          <Input
+            labelText={PHONE}
+            value={phone}
+            onChange={(e) => handleInputChange(e, setPhone)}
+          />
+          <Input
+            labelText={ADDRESS}
+            value={address}
+            onChange={(e) => handleInputChange(e, setAddress)}
+          />
+          <Input
+            labelText={BALANCE}
+            value={balance}
+            onChange={(e) => handleInputChange(e, setBalance)}
+          />
+          <Button
+            btnValue="Save"
+            onClick={updateUser}
+            customClassName="edit-user"
+          />
+        </form>
+      </RenderIfValid>
+    </>
   );
 }
 

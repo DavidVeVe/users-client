@@ -8,28 +8,40 @@ import "./user.scss";
 const { editUser } = helper;
 
 function User({ userData = {} }) {
-  const { balance = "", name = {}, picture = "", _id = "", isLogedIn } = userData;
-  const { first = "", last = "" } = name;
-  const userId = localStorage.getItem('userId')
-
   const [showBalance, setShowBalance] = useState(false);
+  const { balance = "", name = {}, picture = "", _id = "" } = userData;
+  const { first = "", last = "" } = name;
+  const userId = localStorage.getItem("userId");
+
   const navigate = useNavigate();
 
   const toggleBalance = () => {
     setShowBalance(!showBalance);
   };
 
+  const handleEditUser = () => editUser(navigate, userId);
+
   return (
     <section className="user-profile">
-      <img className="user-profile__image" src={picture} />
+      <div className="user-profile__image-wrapper">
+        <img className="user-profile__image" src={picture} />
+      </div>
       <RenderIfValid isValid={first && last}>
         <h5 className="user-profile__name">
           {first} {last}
         </h5>
       </RenderIfValid>
       <div className="user-profile__btns">
-        <Button btnValue="Balance" onClick={toggleBalance} disabled={_id !== userId} />
-        <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} disabled={_id !== userId} />
+        <Button
+          btnValue="Balance"
+          onClick={toggleBalance}
+          disabled={_id !== userId}
+        />
+        <Button
+          btnValue="Edit"
+          onClick={handleEditUser}
+          disabled={_id !== userId}
+        />
       </div>
       <RenderIfValid isValid={showBalance && balance && _id === userId}>
         <h5 className="user-profile__balance">{balance}</h5>
