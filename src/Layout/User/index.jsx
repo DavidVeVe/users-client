@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button";
 import RenderIfValid from "../../common/RenderIfValid";
@@ -12,6 +12,13 @@ function User({ userData = {} }) {
   const { balance = "", name = {}, picture = "", _id = "" } = userData;
   const { first = "", last = "" } = name;
   const userId = localStorage.getItem("userId");
+  const TOKEN = localStorage.getItem('token')
+
+  useEffect(() => {
+    if(!TOKEN) {
+      navigate('/login')
+    }
+  }, [localStorage])
 
   const navigate = useNavigate();
 

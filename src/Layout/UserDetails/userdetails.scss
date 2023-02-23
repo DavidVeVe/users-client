@@ -6,13 +6,22 @@
 
     h3 {
         text-align: center;
+        margin-bottom: 0;
     }
 }
 
 .edit-user {
-    padding: 8px;
-    background-color: #C2C2C2;
     font-size: 18px;
+    padding: 8px;
     text-transform: uppercase;
     font-weight: bold;
+    background-color: #1A54A9;
+    color: white;
+}
+
+.cancel-edit {
+    background-color: #C2C2C2;
+    margin: 0 16px;
+    font-weight: bold;
+    text-transform: uppercase;
 }

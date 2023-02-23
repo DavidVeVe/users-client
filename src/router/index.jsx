@@ -10,7 +10,7 @@ import ErrorPage from "../error-page";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Login />,
     errorElement: <ErrorPage />
   },
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: "/users/",
+    path: "/users",
     element: <Users />,
     errorElement: <ErrorPage />
   },

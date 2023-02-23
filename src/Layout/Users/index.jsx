@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import User from "../User";
 import UserCard from "../UserCard";
 import Loader from "../../Components/Loader";
+import Button from "../../Components/Button";
 import helper from "./helper";
+import common from "../../common/logout";
 import "./users.scss";
 import RenderIfValid from "../../common/RenderIfValid";
 
@@ -14,7 +17,15 @@ function Users() {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+  const TOKEN = localStorage.getItem('token')
+
   useEffect(() => {
+    
+    if(!TOKEN) {
+      navigate('/login')
+    }
+    
     const getUsersData = async () => {
       setIsLoading(true);
       const data = await helper.getUsers();
@@ -23,7 +34,7 @@ function Users() {
     };
 
     getUsersData();
-  }, []);
+  }, [localStorage]);
 
   const CardsUsers = getUsersCardsData(selectedUserId, userId, usersdata).map(
     (user) => (
@@ -46,6 +57,7 @@ function Users() {
         <User userData={currentUserData} />
         <div className="users__cards">{CardsUsers}</div>
       </RenderIfValid>
+      <Button onClick={() => common.logout(navigate)} customClassName="log-out">Log out</Button>
     </section>
   );
 }

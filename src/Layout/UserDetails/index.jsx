@@ -9,7 +9,7 @@ import constants from "../../common/constants";
 import detailsHelper from "./helper";
 import "./userdetails.scss";
 
-const { handleInputChange, handleUpdateUser } = detailsHelper;
+const { handleInputChange, handleUpdateUser, cancelEdit } = detailsHelper;
 
 const {
   SIGNUP: { PICTURE, PHONE, ADDRESS, AGE, EYE_COLOR, NAME, COMPANY, BALANCE }
@@ -31,7 +31,14 @@ function UserDetails() {
   const [isLoading, setIsLoading] = useState(false);
 
   const userId = localStorage.getItem("userId");
+  const TOKEN = localStorage.getItem("token");
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (!TOKEN) {
+      navigate("/login");
+    }
+
     const getUserData = async () => {
       setIsLoading(true);
       const data = await helper.getUser(userId);
@@ -49,9 +56,7 @@ function UserDetails() {
     };
 
     getUserData();
-  }, []);
-
-  const navigate = useNavigate();
+  }, [localStorage]);
 
   const updateDetailsPayload = {
     name: {
@@ -69,6 +74,8 @@ function UserDetails() {
 
   const updateUser = (e) =>
     handleUpdateUser(e, navigate, userId, updateDetailsPayload);
+
+  const cancelAction = () => cancelEdit(navigate, userId);
 
   return (
     <>
@@ -128,6 +135,9 @@ function UserDetails() {
             onClick={updateUser}
             customClassName="edit-user"
           />
+          <Button customClassName="cancel-edit" onClick={cancelAction}>
+            <p>Cancel</p>
+          </Button>
         </form>
       </RenderIfValid>
     </>
