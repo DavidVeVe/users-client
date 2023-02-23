@@ -4,6 +4,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+
+    h5 {
+        color: #CD2626;
+        position: absolute;
+        top: 25%;
+    }
 
     &__form {
         width: 60%;
@@ -22,5 +29,5 @@
 
 .logo {
     width: 30%;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }

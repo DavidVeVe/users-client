@@ -1,14 +1,11 @@
 import { logIn } from "../../requestsHandlers/auth";
 
-const handleEmailValue = ({ target }, setEmail) => {
-  setEmail(target.value);
+const handleInputValue = ({ target }, setInputValue, setErrorMessate) => {
+  setInputValue(target.value);
+  setErrorMessate(null)
 };
 
-const handlePasswordValue = ({ target }, setPassword) => {
-  setPassword(target.value);
-};
-
-const handleLogin = async (e, payload, navigate) => {
+const handleLogin = async (e, payload, navigate, setErrorMessage) => {
   e.preventDefault();
   const data = await logIn(payload);
 
@@ -16,10 +13,11 @@ const handleLogin = async (e, payload, navigate) => {
     localStorage.setItem("token", data.token);
     navigate(`/users/${data.user._id}`);
   }
+
+  setErrorMessage(data && data.message)
 };
 
 export default {
-  handleEmailValue,
-  handlePasswordValue,
+  handleInputValue,
   handleLogin
 };
