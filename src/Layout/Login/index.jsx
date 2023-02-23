@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
+import Loader from '../../Components/Loader'
 import constants from "../../common/constants";
 import requestHandlers from "./helper";
 import logo from "../../assets/logo.png";
@@ -18,11 +19,12 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userId')
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
   }, []);
 
   return (
@@ -42,12 +44,15 @@ function Login() {
           value={password}
           onChange={(e) => handleInputValue(e, setPassword, setErrorMessage)}
         />
-        <Button
-          onClick={(e) =>
-            handleLogin(e, { email, password }, navigate, setErrorMessage)
-          }
-          btnValue="LOGIN"
-        />
+        <RenderIfValid isValid={!isLoading}>
+          <Button
+            onClick={(e) =>
+              handleLogin(e, { email, password }, navigate, setErrorMessage, setIsLoading)
+            }
+            btnValue="LOGIN"
+          />
+        </RenderIfValid>
+        <RenderIfValid isValid={isLoading}><Loader /></RenderIfValid>
       </form>
     </section>
   );
