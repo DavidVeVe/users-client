@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button";
 import RenderIfValid from "../../common/RenderIfValid";
 import helper from "./helper";
 import "./user.scss";
 
-const { getUser, editUser } = helper;
+const { editUser } = helper;
 
 function User({ userData = {} }) {
   const { balance = "", name = {}, picture = "", _id = "" } = userData;
   const { first = "", last = "" } = name;
+  const userId = localStorage.getItem('userId')
 
-  const { userId } = useParams();
   const [showBalance, setShowBalance] = useState(false);
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function User({ userData = {} }) {
         </h5>
       </RenderIfValid>
       <div className="user-profile__btns">
-        <Button btnValue="Balance" onClick={toggleBalance} />
+        <Button btnValue="Balance" onClick={toggleBalance} isBlocked={_id !== userId} />
         <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} />
       </div>
       <RenderIfValid isValid={showBalance && balance}>

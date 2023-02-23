@@ -27,4 +27,11 @@
 
 .user-card__button {
     background-color: transparent;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 4px;
+
+    &:hover {
+        background-color: #F0F0F0;
+    }
 }

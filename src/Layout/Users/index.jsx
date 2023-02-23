@@ -4,9 +4,12 @@ import UserCard from "../UserCard";
 import helper from "./helper";
 import "./users.scss";
 
+const { getSelectedUserId, getCurrentUserData, getUsersCardsData } = helper;
+
 function Users() {
-  const [usersdata, setUsersdata] = useState([]);
   const userId = localStorage.getItem("userId");
+  const [usersdata, setUsersdata] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
     const getUsersData = async () => {
@@ -17,20 +20,24 @@ function Users() {
     getUsersData();
   }, []);
 
-  const currentUserData = usersdata.filter((user) => user._id === userId)[0];
+  const cardsUsers = getUsersCardsData(
+    selectedUserId,
+    userId,
+    usersdata
+  ).map((user) => (
+    <UserCard
+      userData={user}
+      onClick={(id) => getSelectedUserId(id, setSelectedUserId)}
+      key={user._id}
+    />
+  ));
 
-  const usersCardsData = usersdata.filter((user) => user._id !== userId);
-
-  console.log(usersCardsData);
+  const currentUserData = getCurrentUserData(selectedUserId, userId, usersdata);
 
   return (
     <section className="users">
       <User userData={currentUserData} />
-      <div className="users__cards">
-        {usersCardsData.map((user) => (
-          <UserCard userData={user} />
-        ))}
-      </div>
+      <div className="users__cards">{cardsUsers}</div>
     </section>
   );
 }
