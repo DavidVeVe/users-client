@@ -29,7 +29,7 @@ function User({ userData = {} }) {
       </RenderIfValid>
       <div className="user-profile__btns">
         <Button btnValue="Balance" onClick={toggleBalance} disabled={_id !== userId} />
-        <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} />
+        <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} disabled={_id !== userId} />
       </div>
       <RenderIfValid isValid={showBalance && balance && _id === userId}>
         <h5 className="user-profile__balance">{balance}</h5>
