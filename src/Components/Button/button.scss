@@ -1,3 +1,11 @@
 button {
     outline: none;
+    margin: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #C2C2C2;
+    
+    &:hover {
+        cursor: pointer;
+    }
 }

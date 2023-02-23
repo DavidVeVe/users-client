@@ -4,6 +4,7 @@ import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import constants from "../../common/constants";
 import requestHandlers from "./helper";
+import logo from '../../assets/logo.png'
 import "./login.scss";
 
 const { handleEmailValue, handlePasswordValue, handleLogin } = requestHandlers;
@@ -18,9 +19,9 @@ function Login() {
   const navigate = useNavigate()
 
   return (
-    <>
-      <h1>This is login</h1>
-      <form>
+    <section className="login">
+      <img className="logo" src={logo} />
+      <form className="login__form">
         <Input
           labelText={EMAIL}
           value={email}
@@ -31,9 +32,9 @@ function Login() {
           value={password}
           onChange={(e) => handlePasswordValue(e, setPassword)}
         />
-        <Button onClick={(e) => handleLogin(e, { email, password }, navigate)} btnValue='Log in' />
+        <Button onClick={(e) => handleLogin(e, { email, password }, navigate)} btnValue='LOGIN' />
       </form>
-    </>
+    </section>
   );
 }
 

@@ -1,2 +1,16 @@
-input {
+.input__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin: 8px 0 8px 2px;
+    }
+
+    input {
+        width: 100%;
+        height: 25px;
+        border-radius: 3px;
+        border: 1px solid #CDCDCD;
+    }
 }
