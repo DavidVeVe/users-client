@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import User from "../User";
 import UserCard from "../UserCard";
+import Loader from "../../Components/Loader";
 import helper from "./helper";
 import "./users.scss";
 
@@ -10,10 +11,13 @@ function Users() {
   const userId = localStorage.getItem("userId");
   const [usersdata, setUsersdata] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getUsersData = async () => {
+      setIsLoading(true)
       const data = await helper.getUsers();
+      setIsLoading(false)
       setUsersdata(data);
     };
 
@@ -37,6 +41,7 @@ function Users() {
   return (
     <section className="users">
       <User userData={currentUserData} />
+      <Loader />
       <div className="users__cards">{CardsUsers}</div>
     </section>
   );
