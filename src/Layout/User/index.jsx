@@ -1,47 +1,39 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button";
+import RenderIfValid from "../../common/RenderIfValid";
 import helper from "./helper";
 import "./user.scss";
 
 const { getUser, editUser } = helper;
 
-function User({ userData }) {
-  const { balance, name, picture, _id } = userData;
+function User({ userData = {} }) {
+  const { balance = "", name = {}, picture = "", _id = "" } = userData;
+  const { first = "", last = "" } = name;
+
   const { userId } = useParams();
-  console.log({ userData });
   const [showBalance, setShowBalance] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // const getUserData = async () => {
-    //   const data = await getUser(userId);
-    //   setUser(data);
-    // };
-    // getUserData();
-  }, []);
 
   const toggleBalance = () => {
     setShowBalance(!showBalance);
   };
 
-  const currentBalance = showBalance && <h5>{balance}</h5>;
-
-  const userName = (
-    <h5>
-      {name?.first} {name?.last}
-    </h5>
-  );
-
   return (
     <section className="user-profile">
       <img className="user-profile__image" src={picture} />
-      {userName}
+      <RenderIfValid isValid={first && last}>
+        <h5 className="user-profile__name">
+          {first} {last}
+        </h5>
+      </RenderIfValid>
       <div className="user-profile__btns">
         <Button btnValue="Balance" onClick={toggleBalance} />
         <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} />
       </div>
-      {currentBalance}
+      <RenderIfValid isValid={showBalance && balance}>
+        <h5 className="user-profile__balance">{balance}</h5>
+      </RenderIfValid>
     </section>
   );
 }

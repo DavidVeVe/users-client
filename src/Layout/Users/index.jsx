@@ -8,7 +8,6 @@ function Users() {
   useEffect(() => {
     const getUsersData = async () => {
       const data = await helper.getUsers();
-      console.log(data);
       setUsersdata(data);
     };
 
@@ -19,8 +18,6 @@ function Users() {
     const userId = localStorage.getItem("userId");
     return user._id === userId;
   })[0];
-
-  console.log(currentUserData);
 
   return (
     <section className="users">
