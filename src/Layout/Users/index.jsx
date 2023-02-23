@@ -20,7 +20,7 @@ function Users() {
     getUsersData();
   }, []);
 
-  const cardsUsers = getUsersCardsData(
+  const CardsUsers = getUsersCardsData(
     selectedUserId,
     userId,
     usersdata
@@ -37,7 +37,7 @@ function Users() {
   return (
     <section className="users">
       <User userData={currentUserData} />
-      <div className="users__cards">{cardsUsers}</div>
+      <div className="users__cards">{CardsUsers}</div>
     </section>
   );
 }
