@@ -8,7 +8,7 @@ import "./user.scss";
 const { editUser } = helper;
 
 function User({ userData = {} }) {
-  const { balance = "", name = {}, picture = "", _id = "" } = userData;
+  const { balance = "", name = {}, picture = "", _id = "", isLogedIn } = userData;
   const { first = "", last = "" } = name;
   const userId = localStorage.getItem('userId')
 
@@ -28,10 +28,10 @@ function User({ userData = {} }) {
         </h5>
       </RenderIfValid>
       <div className="user-profile__btns">
-        <Button btnValue="Balance" onClick={toggleBalance} isBlocked={_id !== userId} />
+        <Button btnValue="Balance" onClick={toggleBalance} disabled={_id !== userId} />
         <Button btnValue="Edit" onClick={() => editUser(navigate, userId)} />
       </div>
-      <RenderIfValid isValid={showBalance && balance}>
+      <RenderIfValid isValid={showBalance && balance && _id === userId}>
         <h5 className="user-profile__balance">{balance}</h5>
       </RenderIfValid>
     </section>
