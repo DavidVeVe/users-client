@@ -22,6 +22,7 @@ function Login() {
 
   useEffect(() => {
     localStorage.removeItem('token')
+    localStorage.removeItem('userId')
   }, []);
 
   return (

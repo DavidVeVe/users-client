@@ -2,19 +2,21 @@ import { logIn } from "../../requestsHandlers/auth";
 
 const handleInputValue = ({ target }, setInputValue, setErrorMessate) => {
   setInputValue(target.value);
-  setErrorMessate(null)
+  setErrorMessate(null);
 };
 
 const handleLogin = async (e, payload, navigate, setErrorMessage) => {
   e.preventDefault();
   const data = await logIn(payload);
+  const { token, user = {} } = data;
 
-  if (data && data.token) {
-    localStorage.setItem("token", data.token);
-    navigate(`/users/${data.user._id}`);
+  if (token && user && user._id) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", user._id);
+    navigate(`/users`);
   }
 
-  setErrorMessage(data && data.message)
+  setErrorMessage(data && data.message);
 };
 
 export default {
