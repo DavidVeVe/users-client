@@ -42,6 +42,7 @@ function UserDetails() {
     const getUserData = async () => {
       setIsLoading(true);
       const data = await helper.getUser(userId);
+      setIsLoading(false);
 
       setFirstName(data.name.first);
       setLastName(data.name.last);
@@ -52,7 +53,6 @@ function UserDetails() {
       setPhone(data.phone);
       setAddress(data.address);
       setBalance(data.balance);
-      setIsLoading(false);
     };
 
     getUserData();
